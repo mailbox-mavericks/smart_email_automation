@@ -16,7 +16,7 @@ def generate_emailResponse(text):
 
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful assistant skilled in drafting professional email responses."},
             {"role": "user", "content": prompt}

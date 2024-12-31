@@ -10,15 +10,22 @@ def analyze_sentiment(text, API_KEY):
     ]
     
     response = openai.ChatCompletion.create(
-        model="gpt-4",  # Replace with "gpt-4" if needed
+        model="gpt-3.5-turbo",  # Replace with "gpt-4" if needed
         messages=messages,
         temperature=0  # Makes the model's responses more deterministic
     )
     
     sentiment = response['choices'][0]['message']['content'].strip()
+    if "NEGATIVE" in sentiment.upper():
+        sentiment = "Negative"
+    if "POSITIVE" in sentiment.upper():
+        sentiment = "Positive"
+    if "NEUTRAL" in sentiment.upper():
+        sentiment = "Neutral"
+
     return sentiment
 
-# if __name__== '_main__':
+# if __name__== '__main__':
 #     # Example usage
 #     text = """
 #             I am writing to express my concern regarding the delays we’ve been facing on the current project. Despite several reminders, there seems to be little progress, and it’s becoming increasingly difficult to meet our original deadline.
@@ -27,5 +34,7 @@ def analyze_sentiment(text, API_KEY):
     
 #             Regards,
 #         """
-#     sentiment = analyze_sentiment(text)
+#     load_dotenv()
+#     OPEN_AI_API_KEY = os.environ.get('OPEN_AI_API_KEY')
+#     sentiment = analyze_sentiment(text, OPEN_AI_API_KEY)
 #     print(f"Sentiment: {sentiment}")

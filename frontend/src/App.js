@@ -22,12 +22,12 @@ const App = () => {
         applyFilter();
     }, [filter, emails]);
 
-    const fetchEmails = async () => {
-        const API_BASE_URL =
-            process.env.NODE_ENV === "development"
-                ? "http://127.0.0.1:8000"
-                : "https://smart-email-automation.onrender.com";
+    const API_BASE_URL =
+        process.env.NODE_ENV === "development"
+            ? "http://127.0.0.1:8000"
+            : "https://smart-email-automation.onrender.com";
 
+    const fetchEmails = async () => {
         try {
             setLoading(true);
             const response = await axios.get(`${API_BASE_URL}/read_all`);
@@ -49,6 +49,37 @@ const App = () => {
             }
         } catch (err) {
             setError("Failed to fetch emails.");
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const refreshEmails = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.post(`${API_BASE_URL}/refresh_page`);
+            const refreshedEmails = response.data;
+
+            // Update state with refreshed emails
+            const newEmailList = refreshedEmails.map((email) => ({
+                ...email,
+                isRead: email.isRead || false, // Retain isRead status
+            }));
+
+            setEmails(newEmailList);
+            setFilteredEmails(newEmailList);
+
+            // Check for new messages
+            const newMessages = newEmailList.filter(
+                (email) => !emails.find((oldEmail) => oldEmail.id === email.id)
+            );
+
+            if (newMessages.length > 0) {
+                setNewEmails(newMessages);
+            }
+        } catch (err) {
+            setError("Failed to refresh emails.");
             console.error(err);
         } finally {
             setLoading(false);
@@ -94,7 +125,7 @@ const App = () => {
             <FilterBar filter={filter} setFilter={setFilter} />
             <EmailList emails={filteredEmails} markAsRead={markAsRead} />
             <div className="text-center mt-4">
-                <button onClick={fetchEmails} className="btn btn-primary">
+                <button onClick={refreshEmails} className="btn btn-primary">
                     Refresh Emails
                 </button>
             </div>

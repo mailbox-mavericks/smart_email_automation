@@ -23,7 +23,14 @@ def analyze_priority(text, API_KEY):
     )
     
     priority = response['choices'][0]['message']['content'].strip()
-    return priority
+
+    if "HIGH" in priority.upper():
+        priority_val = "High"
+    if "LOW" in priority.upper():
+        priority_val = "Low"
+    if "MEDIUM" in priority.upper():
+        priority_val = "Medium"
+    return priority_val
 
 # if __name__ == '__main__':
 #     # Example usage

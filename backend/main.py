@@ -125,41 +125,27 @@ def mark_as_read(text):
     return email_response
 
 
-
-@app.post('/refereshpage')
-def refersh_page():
+@app.post("/refresh_page")
+def refresh_page(email_db: db_dependancy, read_mail_db: read_db_dependancy):
     try:
+        # Call fetch_and_insert_data
         fetch_and_insert_data()
+
+        # Call get_emails and return the updated data
+        emails = email_db.query(Emails_Data).all()
+        read_ids = {email.id for email in read_mail_db.query(ReadEmail).all()}
+
+        emails_with_status = [
+            {
+                "id": email.id,
+                "subject": email.subject,
+                "body": email.body,
+                "priority": email.priority,
+                "sentiment": email.sentiment,
+                "isRead": email.id in read_ids,
+            }
+            for email in emails
+        ]
+        return emails_with_status
     except Exception as e:
-        return e
-    
-
-
-# @app.get("/emails/{email_id}", status_code=status.HTTP_200_OK)
-# async def read_emails(db: db_dependancy, email_id: int = Path(gt=0)):
-#     email_model = db.query(Emails_Data).filter(Emails_Data.id == email_id).first()
-#     if email_model is not None:
-#         return email_model
-#     raise HTTPException(status_code=404, detail="Email not found")
-
-# @app.post("/add-data/")
-# async def add_data(db: db_dependancy):
-#     df = get_df_from_outlook()
-#     # Insert DataFrame into the database
-#     insert_dataframe_into_db(df, db)
-
-#     return {"message": "Data inserted successfully"}
-
-
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["http://localhost:3000"],  # Allow React app
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-
-# @app.get("/greet/{name}")
-# async def greet(name: str):
-#     return {"message": f"Hello, {name}!"}
+        raise HTTPException(status_code=500, detail=str(e))
