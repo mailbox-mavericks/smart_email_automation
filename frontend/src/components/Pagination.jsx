@@ -1,26 +1,33 @@
 import React from "react";
+import "./Pagination.css";
 
 const Pagination = ({ emailsPerPage, totalEmails, paginate, currentPage }) => {
-  const pageNumbers = [];
+    const pageNumbers = [];
+    const totalPages = Math.ceil(totalEmails / emailsPerPage);
 
-  for (let i = 1; i <= Math.ceil(totalEmails / emailsPerPage); i++) {
-    pageNumbers.push(i);
-  }
+    for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+    }
 
-  return (
-    <nav>
-      <ul className="pagination">
-        {pageNumbers.map((number) => (
-          <li
-            key={number}
-            className={number === currentPage ? "active" : ""}
-          >
-            <button onClick={() => paginate(number)}>{number}</button>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
+    return (
+        <nav className="pagination-nav">
+            <ul className="pagination">
+                {pageNumbers.map((number) => (
+                    <li
+                        key={number}
+                        className={`page-item ${number === currentPage ? "active" : ""}`}
+                    >
+                        <button
+                            onClick={() => paginate(number)}
+                            className="page-link"
+                        >
+                            {number}
+                        </button>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    );
 };
 
 export default Pagination;

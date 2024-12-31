@@ -1,19 +1,86 @@
-.email-list {
-  max-width: 800px;
-  margin: 0 auto;
+.email-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
 }
 
-.email-cards {
-  margin-top: 20px;
+.email-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.pagination {
+.email-subject {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.btn-mark-read {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #66bb6a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-priority {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.email-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  align-items: center;
+  z-index: 1000;
 }
 
-.pagination .active button {
+.email-modal-content {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 50%;
+  max-height: 80%;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.btn-generate-response {
   background-color: #007bff;
   color: white;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
 }

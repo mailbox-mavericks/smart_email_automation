@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import "./EmailCard.css";
 
-const EmailCard = ({ email, markAsRead }) => {
-  const [showBody, setShowBody] = useState(false);
-
+const EmailCard = ({ email, onShowBody, markAsRead }) => {
   // Function to get the color based on priority
   const getPriorityColor = (priority) => {
     switch (priority) {
@@ -34,26 +32,20 @@ const EmailCard = ({ email, markAsRead }) => {
 
   return (
     <div className={`email-card ${email.isRead ? "read" : "unread"}`}>
-      {/* Subject clickable to toggle body */}
-      <h3
-        className="email-subject"
-        onClick={() => setShowBody(!showBody)}
-        style={{ cursor: "pointer" }}
-      >
-        {email.subject}
-      </h3>
-
-      {/* Email body toggles visibility */}
-      {showBody && <p className="email-body">{email.body}</p>}
-
-      <div className="email-actions">
-        {/* Priority and Sentiment as buttons with conditional styles */}
-        <div className="buttons-right">
+      <div className="email-header">
+        <h3
+          className="email-subject"
+          onClick={() => onShowBody(email)}
+          style={{ cursor: "pointer" }}
+        >
+          {email.subject}
+        </h3>
+        <div className="email-meta">
           <button
             className="btn-priority"
             style={{
               backgroundColor: getPriorityColor(email.priority),
-              color: "black", // Text color set to black
+              color: "black",
             }}
           >
             Priority: {email.priority}
@@ -62,7 +54,7 @@ const EmailCard = ({ email, markAsRead }) => {
             className="btn-sentiment"
             style={{
               backgroundColor: getSentimentColor(email.sentiment),
-              color: "black", // Text color set to black
+              color: "black",
             }}
           >
             Sentiment: {email.sentiment}
@@ -70,7 +62,6 @@ const EmailCard = ({ email, markAsRead }) => {
         </div>
       </div>
 
-      {/* Show "Mark as Read" button only if the email is unread */}
       {!email.isRead && (
         <button className="btn-mark-read" onClick={() => markAsRead(email.id)}>
           Mark as Read
