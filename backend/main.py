@@ -45,7 +45,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 if PRODUCTION:
-    url = "https://smart-email-automation-frontend.onrender.com"
+    url = "https://smart-email-automation-frontend-urd8.onrender.com"
 else:
     url = "http://localhost:3000"
 

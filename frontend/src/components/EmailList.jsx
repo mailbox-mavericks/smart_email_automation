@@ -15,7 +15,7 @@ const EmailList = ({ emails, markAsRead }) => {
   const API_BASE_URL =
     process.env.NODE_ENV === "development"
       ? "http://127.0.0.1:8000"
-      : "https://smart-email-automation.onrender.com";
+      : "https://smart-email-automation-backend.onrender.com";
 
   // Sort emails: unread first, then by priority, then read
   const sortedEmails = [...emails].sort((a, b) => {
