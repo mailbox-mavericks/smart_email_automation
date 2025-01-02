@@ -14,6 +14,7 @@ from pydantic import BaseModel
 
 
 def fetch_and_insert_data():
+    "This function fetches and inserts data in database when the application runs"
     df,df_mail_unique_id = get_df_from_outlook()
 
     db = SessionLocal()
