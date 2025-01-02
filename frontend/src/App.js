@@ -25,7 +25,7 @@ const App = () => {
     const API_BASE_URL =
         process.env.NODE_ENV === "development"
             ? "http://127.0.0.1:8000"
-            : "https://smart-email-automation.onrender.com";
+            : "https://smart-email-automation-backend.onrender.com";
 
     const fetchEmails = async () => {
         try {
@@ -96,8 +96,10 @@ const App = () => {
 
     const markAsRead = async (id) => {
         try {
+            // Update the backend to mark the email as read
             await axios.put(`${API_BASE_URL}/read_all/${id}/mark-as-read`);
 
+            // Update the email state in the frontend
             const updatedEmails = emails.map((email) =>
                 email.id === id ? { ...email, isRead: true } : email
             );
@@ -110,35 +112,21 @@ const App = () => {
         }
     };
 
-    const generateResponse = async (email) => {
-        try {
-            const response = await axios.post(`${API_BASE_URL}/generate_response`, {
-                subject: email.subject,
-                body: email.body,
-            });
-            alert(`Response generated: ${response.data.message}`);
-        } catch (err) {
-            console.error("Error generating response:", err);
-            alert("Failed to generate response. Please try again.");
-        }
-    };
-
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
     return (
         <div className="app-container">
+            {/* Sidebar */}
             <Sidebar />
+
+            {/* Main Content */}
             <div className="content-container">
                 <h1 className="text-center mb-4">Emails Dashboard</h1>
                 <SearchBar onSearch={handleSearch} />
                 <FilterBar filter={filter} setFilter={setFilter} />
                 <div className="email-list-container">
-                    <EmailList
-                        emails={filteredEmails}
-                        markAsRead={markAsRead}
-                        generateResponse={generateResponse} // Pass the generate response handler
-                    />
+                    <EmailList emails={filteredEmails} markAsRead={markAsRead} />
                 </div>
                 <div className="text-center mt-4">
                     <button onClick={refreshEmails} className="btn btn-primary">
