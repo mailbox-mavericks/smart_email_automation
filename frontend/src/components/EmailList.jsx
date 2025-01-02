@@ -45,7 +45,7 @@ const EmailList = ({ emails, markAsRead }) => {
   const handleGenerateResponse = async () => {
     try {
       const response = await axios.post(`${API_BASE_URL}/generate_response`, {
-        id: selectedEmail.id, // Pass the email ID
+        body: selectedEmail.body, // Send the email body instead of ID
       });
       setResponseText(response.data.generatedText); // Populate input field with the generated response
     } catch (error) {
@@ -57,7 +57,7 @@ const EmailList = ({ emails, markAsRead }) => {
   const handleSendResponse = async () => {
     try {
       const response = await axios.post(`${API_BASE_URL}/send_response`, {
-        id: selectedEmail.id, // Pass the email ID
+        body: selectedEmail.body, // Send the email body
         responseText: responseText, // Send the response text
       });
       alert("Response sent successfully!");

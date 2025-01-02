@@ -8,9 +8,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from read_email import get_df_from_outlook
 from response_mail import generate_emailResponse
 from utils import insert_dataframe_into_db, insert_uniqueid_dataframe_into_db
-from apscheduler.schedulers.background import BackgroundScheduler # type: ignore
 from contextlib import asynccontextmanager
 from config import PRODUCTION
+from pydantic import BaseModel
 
 
 def fetch_and_insert_data():
@@ -117,10 +117,12 @@ def mark_as_read(email_id: int, read_mail_db: read_db_dependancy):
         return {"message": f"Email {email_id} marked as read"}
     return {"message": f"Email {email_id} is already marked as read"}
 
+# Define a data model using Pydantic
+class text(BaseModel):
+    body: str
 
-
-@app.get("/generate_response")
-def mark_as_read(text):
+@app.post("/generate_response")
+def mark_as_read(request: text):
     email_response = generate_emailResponse(text)
     return email_response
 
