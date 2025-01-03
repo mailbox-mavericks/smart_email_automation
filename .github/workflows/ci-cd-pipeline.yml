@@ -25,6 +25,7 @@ jobs:
         run: |
           cd frontend
           npm install
+          npm install firebase
 
       # Step 4: Build frontend
       - name: Build frontend
