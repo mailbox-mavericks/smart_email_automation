@@ -3,6 +3,7 @@
     display: flex;
     height: 100vh;
     overflow: hidden;
+    justify-content: center;
 }
 
 /* Sidebar Styling */
@@ -41,9 +42,9 @@
     top:0;
     right:0;
     font-size: 20px;
-    
+   
 }
-
+ 
 .auth-container {
     display: flex;
     align-items: center;
@@ -51,7 +52,7 @@
     height: 100%;
     width: 100%;
   }
-  
+ 
   /* Card Design */
   .auth-card {
     background: #fff;
@@ -62,7 +63,7 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
   }
-  
+ 
   /* Title */
   .auth-title {
     font-size: 1.5rem;
@@ -70,12 +71,12 @@
     margin-bottom: 1.5rem;
     color: #333;
   }
-  
+ 
   /* Input Group */
   .input-group {
     margin-bottom: 1rem;
   }
-  
+ 
   .input-group input {
     width: 100%;
     padding: 0.75rem;
@@ -85,12 +86,12 @@
     outline: none;
     transition: border 0.3s ease;
   }
-  
+ 
   .input-group input:focus {
     border-color: #6a11cb;
     box-shadow: 0 0 4px rgba(106, 17, 203, 0.3);
   }
-  
+ 
   /* Buttons */
   .auth-btn {
     width: 100%;
@@ -103,22 +104,23 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-  
+ 
   .auth-btn.primary {
     background: #6a11cb;
     color: #fff;
   }
-  
+ 
   .auth-btn.primary:hover {
     background: #5a0fb0;
   }
-  
+ 
   .auth-btn.secondary {
     background: #fff;
     color: #6a11cb;
     border: 1px solid #6a11cb;
   }
-  
+ 
   .auth-btn.secondary:hover {
     background: rgba(106, 17, 203, 0.1);
-  } 
+  }
+
