@@ -47,7 +47,7 @@ const EmailList = ({ emails, markAsRead }) => {
       const response = await axios.post(`${API_BASE_URL}/generate_response`, {
         body: selectedEmail.body, // Send the email body instead of ID
       });
-      setResponseText(response.data.generatedText); // Populate input field with the generated response
+      setResponseText(response.data); // Populate input field with the generated response
     } catch (error) {
       console.error("Failed to generate response:", error);
       alert("Failed to generate response");
