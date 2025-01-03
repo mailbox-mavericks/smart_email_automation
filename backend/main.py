@@ -29,20 +29,23 @@ def fetch_and_insert_data():
 # Scheduler setup
 # scheduler = BackgroundScheduler()
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup logic
-    print("Starting application and scheduler...")
-    fetch_and_insert_data
-    # scheduler.add_job(fetch_and_insert_data )#, "interval", minutes=0.5)
-    # scheduler.start()
-    yield  # App runs here
-    # Shutdown logic
-    print("Shutting down application and scheduler...")
-    # scheduler.shutdown()
+# @asynccontextmanager
+# async def lifespan(app: FastAPI):
+#     # Startup logic
+#     print("Starting application and scheduler...")
+#     fetch_and_insert_data
+#     # scheduler.add_job(fetch_and_insert_data )#, "interval", minutes=0.5)
+#     # scheduler.start()
+#     yield  # App runs here
+#     # Shutdown logic
+#     print("Shutting down application and scheduler...")
+#     # scheduler.shutdown()
 
 # FastAPI app setup
-app = FastAPI(lifespan=lifespan)
+# app = FastAPI(lifespan=lifespan)
+
+fetch_and_insert_data()
+app = FastAPI()
 
 if PRODUCTION:
     url = "https://smart-email-automation-frontend-urd8.onrender.com"
