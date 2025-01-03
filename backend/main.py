@@ -15,37 +15,38 @@ from pydantic import BaseModel
 
 def fetch_and_insert_data():
     "This function fetches and inserts data in database when the application runs."
-    df,df_mail_unique_id = get_df_from_outlook()
+    # df,df_mail_unique_id = get_df_from_outlook()
+    df = get_df_from_outlook()
 
     db = SessionLocal()
     insert_dataframe_into_db(df, db)
     db.close()
 
-    db_unique_mailid = LoadedMailSessionLocal()
-    insert_uniqueid_dataframe_into_db(df_mail_unique_id,db_unique_mailid)
-    db_unique_mailid.close()
+    # db_unique_mailid = LoadedMailSessionLocal()
+    # insert_uniqueid_dataframe_into_db(df_mail_unique_id,db_unique_mailid)
+    # db_unique_mailid.close()
 
 
 # Scheduler setup
 # scheduler = BackgroundScheduler()
 
-# @asynccontextmanager
-# async def lifespan(app: FastAPI):
-#     # Startup logic
-#     print("Starting application and scheduler...")
-#     fetch_and_insert_data
-#     # scheduler.add_job(fetch_and_insert_data )#, "interval", minutes=0.5)
-#     # scheduler.start()
-#     yield  # App runs here
-#     # Shutdown logic
-#     print("Shutting down application and scheduler...")
-#     # scheduler.shutdown()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup logic
+    print("Starting application and scheduler...")
+    fetch_and_insert_data
+    # scheduler.add_job(fetch_and_insert_data )#, "interval", minutes=0.5)
+    # scheduler.start()
+    yield  # App runs here
+    # Shutdown logic
+    print("Shutting down application and scheduler...")
+    # scheduler.shutdown()
 
 # FastAPI app setup
-# app = FastAPI(lifespan=lifespan)
+app = FastAPI(lifespan=lifespan)
 
-fetch_and_insert_data()
-app = FastAPI()
+# fetch_and_insert_data()
+# app = FastAPI()
 
 if PRODUCTION:
     url = "https://smart-email-automation-frontend-urd8.onrender.com"

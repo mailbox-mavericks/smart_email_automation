@@ -82,31 +82,36 @@ def get_df_from_outlook():
 
                 # Extract and store subjects
                 for message in new_messages:
-                    print("message-------------------------------------------------------------------")
-                    # print(message)
+                    subject = message.get("subject", "No Subject")
+                    subject_list.append(subject)
+                    body = message.get("body", "No Body")
+                    body_content = extract_email_content(body['content'])
+                    body_list.append(body_content)
+                    sentiment_list.append(analyze_sentiment(subject,OPEN_AI_API_KEY))
+                    priority_list.append(analyze_priority(subject,OPEN_AI_API_KEY))
 
-                    # db for loading unique ids of each email
-                    email_db = LoadedMailSessionLocal()
-                    unique_ids = get_unique_ids(email_db)
+                    # # db for loading unique ids of each email
+                    # email_db = LoadedMailSessionLocal()
+                    # unique_ids = get_unique_ids(email_db)
 
-                    if message.get("id") not in unique_ids:
-                        print(message.get("id"))
+                    # if message.get("id") not in unique_ids:
+                    #     print(message.get("id"))
 
-                        print("New Mail Detected----------------------------------------------------------------")
-                        print(message.get("id"))
+                    #     print("New Mail Detected----------------------------------------------------------------")
+                    #     print(message.get("id"))
 
-                        unique_mail_id = message.get("id", "abc123")
-                        unique_ids.append(unique_mail_id)
+                    #     unique_mail_id = message.get("id", "abc123")
+                    #     unique_ids.append(unique_mail_id)
 
-                        subject = message.get("subject", "No Subject")
-                        subject_list.append(subject)
-                        body = message.get("body", "No Body")
-                        body_content = extract_email_content(body['content'])
-                        body_list.append(body_content)
-                        sentiment_list.append(analyze_sentiment(subject,OPEN_AI_API_KEY))
-                        priority_list.append(analyze_priority(subject,OPEN_AI_API_KEY))
+                    #     subject = message.get("subject", "No Subject")
+                    #     subject_list.append(subject)
+                    #     body = message.get("body", "No Body")
+                    #     body_content = extract_email_content(body['content'])
+                    #     body_list.append(body_content)
+                    #     sentiment_list.append(analyze_sentiment(subject,OPEN_AI_API_KEY))
+                    #     priority_list.append(analyze_priority(subject,OPEN_AI_API_KEY))
 
-                        print("repeated call-------------------------------------------------------------------")
+                    #     print("repeated call-------------------------------------------------------------------")
 
                 # Get the nextLink if present
                 messages_url = response_data.get("@odata.nextLink", None)
@@ -128,12 +133,14 @@ def get_df_from_outlook():
     df = pd.DataFrame(message_dict)
     print(df)
 
-    unique_mailid_dict['email_unique_id'] = unique_ids
-    df_mail_unique_id = pd.DataFrame(unique_mailid_dict)
-    print(df_mail_unique_id)
+    return df
+
+    # unique_mailid_dict['email_unique_id'] = unique_ids
+    # df_mail_unique_id = pd.DataFrame(unique_mailid_dict)
+    # print(df_mail_unique_id)
     
     
-    return df,df_mail_unique_id
+    # return df,df_mail_unique_id
 
 # if __name__ == '__main__':
 #     df = get_df_from_outlook()
