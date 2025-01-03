@@ -5,7 +5,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9); /* Fully dark overlay */
+  background: rgba(0, 0, 0, 0.8); /* Dark overlay */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,37 +14,17 @@
 
 /* Modal Content */
 .modal-content {
-  background: #1e1e2f; /* Dark navy-blue background */
-  color: #ffffff; /* White text for clear contrast */
-  padding: 30px 40px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 600px;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.5); /* Strong shadow for emphasis */
+  background: #2c3e50; /* Deep navy-blue */
+  color: #ecf0f1; /* Light text */
+  padding: 40px;
+  border-radius: 12px;
+  width: 95%; /* Increase modal width */
+  max-width: 800px; /* Maximum width */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
   position: relative;
   animation: zoom-in 0.3s ease-out;
   overflow-y: auto; /* Enable scrolling for large content */
-  max-height: 80%; /* Restrict modal height */
-}
-
-/* Modal Header */
-.modal-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  border-bottom: 2px solid #34495e; /* Subtle divider */
-  padding-bottom: 10px;
-  color: #f39c12; /* Golden accent for the title */
-}
-
-/* Modal Body */
-.modal-body {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #dcdcdc; /* Softer light gray for readability */
-  text-align: justify;
-  margin-bottom: 1.5rem;
+  max-height: 85%; /* Restrict modal height */
 }
 
 /* Close Button */
@@ -55,50 +35,102 @@
   font-size: 1.5rem;
   background: none;
   border: none;
-  color: #e74c3c; /* Vibrant red for visibility */
+  color: #e74c3c; /* Vibrant red */
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .close-modal:hover {
-  transform: scale(1.2); /* Slight zoom on hover */
+  transform: scale(1.2);
+  color: #ff6b6b;
+}
+
+/* Text Area for Response */
+.response-input {
+  width: 100%; /* Make input wider */
+  height: 150px; /* Increase height */
+  margin: 20px 0;
+  padding: 12px 16px;
+  border: 1px solid #34495e; /* Subtle border */
+  border-radius: 8px;
+  background: #34495e; /* Slightly lighter navy */
+  color: #ecf0f1;
+  font-size: 1rem;
+  outline: none;
+  resize: none; /* Disable resize */
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.response-input::placeholder {
+  color: #7f8c8d; /* Muted placeholder */
+}
+
+.response-input:focus {
+  border-color: #1abc9c; /* Green border on focus */
+  box-shadow: 0 0 8px rgba(26, 188, 156, 0.5);
+}
+
+/* Send Response Button */
+.send-response {
+  display: inline-block;
+  padding: 14px 28px; /* Larger button size */
+  font-size: 1rem;
+  font-weight: bold;
+  background: #3498db; /* Bright blue */
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.send-response:hover {
+  background: #1f78c1; /* Darker blue */
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(31, 120, 193, 0.5); /* Subtle glow */
 }
 
 /* Generate Response Button */
 .generate-response {
-  display: block;
-  margin: 10px auto 0 auto; /* Centered and spaced */
-  padding: 10px 20px;
-  background: #3498db; /* Bright blue for the button */
-  color: #fff;
-  border: none;
-  border-radius: 5px;
+  display: inline-block;
+  padding: 12px 24px; /* Larger button size */
   font-size: 1rem;
+  font-weight: bold;
+  background: #1abc9c; /* Vibrant green */
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .generate-response:hover {
-  background: #2980b9; /* Darker blue on hover */
+  background: #16a085; /* Darker green */
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(22, 160, 133, 0.5); /* Subtle glow */
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .modal-content {
-    width: 95%;
-    padding: 20px;
-  }
-
-  .modal-title {
-    font-size: 1.5rem;
-  }
-
-  .modal-body {
-    font-size: 0.9rem;
-  }
+/* Modal Header */
+.modal-title {
+  font-size: 2rem; /* Larger title */
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #f1c40f; /* Golden title color */
+  border-bottom: 2px solid #34495e;
+  padding-bottom: 10px;
 }
 
-/* Zoom-In Animation */
+/* Modal Body */
+.modal-body {
+  font-size: 1.2rem; /* Larger body text */
+  line-height: 1.8;
+  color: #bdc3c7; /* Light gray */
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+/* Animation */
 @keyframes zoom-in {
   from {
     opacity: 0;
@@ -107,5 +139,27 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 98%;
+    padding: 25px;
+  }
+
+  .modal-title {
+    font-size: 1.6rem;
+  }
+
+  .response-input {
+    height: 100px;
+  }
+
+  .send-response,
+  .generate-response {
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
 }
