@@ -33,7 +33,7 @@ def fetch_and_insert_data():
 async def lifespan(app: FastAPI):
     # Startup logic
     print("Starting application and scheduler...")
-    fetch_and_insert_data
+    fetch_and_insert_data()
     # scheduler.add_job(fetch_and_insert_data )#, "interval", minutes=0.5)
     # scheduler.start()
     yield  # App runs here
