@@ -15,15 +15,16 @@ from pydantic import BaseModel
 
 def fetch_and_insert_data():
     "This function fetches and inserts data in database when the application runs."
-    df,df_mail_unique_id = get_df_from_outlook()
+    # df,df_mail_unique_id = get_df_from_outlook()
+    df = get_df_from_outlook()
 
     db = SessionLocal()
     insert_dataframe_into_db(df, db)
     db.close()
 
-    db_unique_mailid = LoadedMailSessionLocal()
-    insert_uniqueid_dataframe_into_db(df_mail_unique_id,db_unique_mailid)
-    db_unique_mailid.close()
+    # db_unique_mailid = LoadedMailSessionLocal()
+    # insert_uniqueid_dataframe_into_db(df_mail_unique_id,db_unique_mailid)
+    # db_unique_mailid.close()
 
 
 # Scheduler setup
@@ -43,6 +44,9 @@ async def lifespan(app: FastAPI):
 
 # FastAPI app setup
 app = FastAPI(lifespan=lifespan)
+
+# fetch_and_insert_data()
+# app = FastAPI()
 
 if PRODUCTION:
     url = "https://smart-email-automation-frontend-urd8.onrender.com"
